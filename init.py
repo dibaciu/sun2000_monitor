@@ -28,7 +28,7 @@ def generate_explorer_session_secret_key(length=64):
 for config_files in [COMMON_ENV_FILE, INFLUXDB_EXPLORER_ENV_FILE, GRAFANA_ENV_FILE, MONITOR_ENV_FILE, INFLUXDB3_ADMIN_TOKEN_FILE, INFLUXDB_EXPLORER_CONFIG_FILE, DOCKER_COMPOSE_FILE]:
     assert not os.path.exists(config_files), f'Config file {config_files} already exists. Please remove it before running this script.'
 
-os.environ["INFLUXDB_HOST"] = input("InfluxDB Host (default influx): ") or "influx"
+os.environ["INFLUXDB_HOST"] = input("InfluxDB Host (default influx)db: ") or "influxdb"
 os.environ["INFLUXDB_PORT"] = input("InfluxDB Port (default 8181): ") or "8181"
 os.environ["INFLUXDB_DBNAME"] = "sun2000_monitoring"
 os.environ["INFLUXDB_ADMIN_TOKEN"] = generate_influxdb_token()
