@@ -1,0 +1,77 @@
+volumes:
+  influxdb_data:
+    external: true
+  influxdb_explorer:
+    external: true
+  grafana_data:
+    external: true
+
+networks:
+  sun2000_monitor:
+
+services:
+  influxdb:
+    image: influxdb:3-core
+    container_name: influxdb
+    environment:
+      INFLUXDB3_NODE_IDENTIFIER_PREFIX: node0
+      INFLUXDB3_OBJECT_STORE: file
+      INFLUXDB3_DB_DIR: /var/lib/influxdb3
+      INFLUXDB3_ADMIN_TOKEN_FILE: /home/influxdb3/influxdb3.admin.token
+    ports:
+      - "${INFLUXDB_PORT}:${INFLUXDB_PORT}"
+    networks:
+      - sun2000_monitor
+    volumes:
+      - influxdb_data:/var/lib/influxdb3
+      - type: bind
+        source: ./influxdb3.admin.token
+        target: /home/influxdb3/influxdb3.admin.token
+  explorer:
+    image: influxdata/influxdb3-ui:1.4.0
+    container_name: influxdb3-explorer
+    restart: unless-stopped
+    command: ["--mode=admin"]
+    ports:
+      - "${EXPLORER_PORT}:80"
+    networks:
+      - sun2000_monitor
+    links:
+      - influxdb
+    volumes:
+      - influxdb_explorer:/db
+      - ./influxdb3-explorer.config:/app-root/config/config.json:ro
+    env_file:
+      - .env.explorer
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "${GRAFANA_PORT}:${GRAFANA_PORT}"
+    networks:
+      - sun2000_monitor
+    links:
+      - influxdb
+    volumes:
+      - grafana_data:/var/lib/grafana
+    env_file:
+      - .env.grafana
+
+  monitor:
+    image: monitor
+    container_name: monitor
+    build: .
+    restart: unless-stopped
+    networks:
+      - sun2000_monitor
+    links:
+      - influxdb
+    depends_on:
+      - grafana
+      - influxdb
+    env_file:
+      - .env
+      - .env.monitor
+

@@ -1,0 +1,4523 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 0,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "panels": [],
+      "title": "Status",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "transparent",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "inlineEditing": true,
+        "panZoom": false,
+        "root": {
+          "background": {
+            "color": {
+              "fixed": "transparent"
+            }
+          },
+          "border": {
+            "color": {
+              "fixed": "dark-green"
+            }
+          },
+          "constraint": {
+            "horizontal": "left",
+            "vertical": "top"
+          },
+          "elements": [
+            {
+              "background": {
+                "color": {
+                  "field": "model",
+                  "fixed": "#D9D9D9"
+                },
+                "image": {
+                  "field": "",
+                  "mode": "field"
+                },
+                "size": "fill"
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 15,
+                "text": {
+                  "field": "model",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Model",
+              "placement": {
+                "height": 29.992191314697266,
+                "left": 104,
+                "top": 14,
+                "width": 156.99220275878906
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "rgb(204, 204, 220)"
+                },
+                "size": 16,
+                "text": {
+                  "fixed": "Model"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 2",
+              "placement": {
+                "height": 46.992191314697266,
+                "left": 10,
+                "rotation": 0,
+                "top": 5,
+                "width": 73.99219512939453
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "rgb(204, 204, 220)"
+                },
+                "size": 16,
+                "text": {
+                  "fixed": "S/N"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 3",
+              "placement": {
+                "height": 49.992210388183594,
+                "left": 10,
+                "rotation": 0,
+                "top": 40,
+                "width": 99.99220275878906
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "field": "sn",
+                  "fixed": "#D9D9D9"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 15,
+                "text": {
+                  "field": "sn",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "middle"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 4",
+              "placement": {
+                "height": 29.992191314697266,
+                "left": 104,
+                "rotation": 0,
+                "top": 52,
+                "width": 156.99220275878906
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "rgb(204, 204, 220)"
+                },
+                "size": 16,
+                "text": {
+                  "fixed": "Firmware"
+                },
+                "valign": "middle"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 6",
+              "placement": {
+                "height": 49.99219512939453,
+                "left": 10,
+                "rotation": 0,
+                "top": 82,
+                "width": 99.99220275878906
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "field": "sn",
+                  "fixed": "#D9D9D9"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 15,
+                "text": {
+                  "field": "firmware_version",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "middle"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 7",
+              "placement": {
+                "height": 29.992191314697266,
+                "left": 104,
+                "rotation": 0,
+                "top": 90,
+                "width": 137.99220275878906
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "rgb(204, 204, 220)"
+                },
+                "size": 16,
+                "text": {
+                  "fixed": "Software"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 8",
+              "placement": {
+                "height": 49.99219512939453,
+                "left": 10,
+                "top": 120,
+                "width": 99.99220275878906
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "field": "sn",
+                  "fixed": "#D9D9D9"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 15,
+                "text": {
+                  "field": "software_version",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "middle"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 9",
+              "placement": {
+                "height": 29.992191314697266,
+                "left": 104,
+                "top": 130,
+                "width": 137.99220275878906
+              },
+              "type": "metric-value"
+            }
+          ],
+          "name": "Element 1764861197766",
+          "placement": {
+            "height": 100,
+            "left": 0,
+            "rotation": 0,
+            "top": 0,
+            "width": 100
+          },
+          "type": "frame"
+        },
+        "showAdvancedTypes": true,
+        "tooltip": {
+          "disableForOneClick": false,
+          "mode": "single"
+        },
+        "zoomToContent": false
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "builder",
+          "format": "table",
+          "rawSql": "SELECT \"model\" FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "model",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "df5wzxaabsydca"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "hide": false,
+          "rawSql": "SELECT \"sn\" FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo ",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "sn",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "df5wzxaabsydca"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "hide": false,
+          "rawSql": "SELECT \"firmware_version\" FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo ",
+          "refId": "C",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "firmware_version",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "df5wzxaabsydca"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "hide": false,
+          "rawSql": "SELECT \"software_version\" FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo ",
+          "refId": "D",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "software_version",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "df5wzxaabsydca"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "hide": false,
+          "rawSql": "SELECT \"device_status\" FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo ",
+          "refId": "E",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "device_status",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Equipment details",
+      "type": "canvas"
+    },
+    {
+      "datasource": {
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "transparent",
+            "mode": "fixed"
+          },
+          "mappings": [
+            {
+              "options": {
+                "Grid connected": {
+                  "color": "green",
+                  "index": 0
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
+      "id": 8,
+      "options": {
+        "inlineEditing": true,
+        "panZoom": false,
+        "root": {
+          "background": {
+            "color": {
+              "fixed": "transparent"
+            },
+            "image": {
+              "fixed": ""
+            }
+          },
+          "border": {
+            "color": {
+              "fixed": "dark-green"
+            }
+          },
+          "constraint": {
+            "horizontal": "left",
+            "vertical": "top"
+          },
+          "elements": [
+            {
+              "background": {
+                "color": {
+                  "field": "state1_last",
+                  "fixed": "#D9D9D9"
+                },
+                "image": {
+                  "field": "state1_last",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "size": "contain"
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 15,
+                "text": {
+                  "field": "state1_last",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "top"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 1",
+              "placement": {
+                "height": 33.992191314697266,
+                "left": 12,
+                "rotation": 0,
+                "top": 9,
+                "width": 155.99220275878906
+              },
+              "type": "metric-value"
+            }
+          ],
+          "name": "Element 1764884201119",
+          "placement": {
+            "height": 100,
+            "left": 0,
+            "rotation": 0,
+            "top": 0,
+            "width": 100
+          },
+          "type": "frame"
+        },
+        "showAdvancedTypes": true,
+        "tooltip": {
+          "disableForOneClick": false,
+          "mode": "single"
+        },
+        "zoomToContent": false
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \nselector_last(state1, time)['value'] as state1_last\nFROM \n(SELECT \"state1\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc)",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "state1",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Inverter status",
+      "type": "canvas"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 20
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 8,
+        "y": 1
+      },
+      "id": 3,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^battery_soc$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"battery_soc\" FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "battery_soc",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Battery SOC",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 15
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 11,
+        "y": 1
+      },
+      "id": 18,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^battery_unit1_battery_temperature$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"battery_unit1_battery_temperature\" FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "battery_soc",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Battery temperature",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "transparent",
+            "mode": "fixed"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "single phase"
+                },
+                "1": {
+                  "index": 1,
+                  "text": "three phase"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 14,
+        "y": 1
+      },
+      "id": 33,
+      "options": {
+        "inlineEditing": true,
+        "panZoom": false,
+        "root": {
+          "background": {
+            "color": {
+              "fixed": "transparent"
+            },
+            "image": {
+              "fixed": ""
+            }
+          },
+          "border": {
+            "color": {
+              "fixed": "dark-green"
+            }
+          },
+          "constraint": {
+            "horizontal": "left",
+            "vertical": "top"
+          },
+          "elements": [
+            {
+              "background": {
+                "color": {
+                  "field": "meter_meter_type",
+                  "fixed": "#D9D9D9"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 15,
+                "text": {
+                  "field": "meter_meter_type",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "top"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 1",
+              "placement": {
+                "height": 33.992191314697266,
+                "left": 12,
+                "rotation": 0,
+                "top": 9,
+                "width": 155.99220275878906
+              },
+              "type": "metric-value"
+            }
+          ],
+          "name": "Element 1764884201119",
+          "placement": {
+            "height": 100,
+            "left": 0,
+            "rotation": 0,
+            "top": 0,
+            "width": 100
+          },
+          "type": "frame"
+        },
+        "showAdvancedTypes": true,
+        "tooltip": {
+          "disableForOneClick": false,
+          "mode": "single"
+        },
+        "zoomToContent": false
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \nselector_last(meter_meter_type, time)['value'] as meter_meter_type\nFROM \n(SELECT \"meter_meter_type\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc)",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "state1",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter type",
+      "type": "canvas"
+    },
+    {
+      "datasource": {
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "transparent",
+            "mode": "fixed"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "offline"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "normal"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 4,
+        "x": 4,
+        "y": 3
+      },
+      "id": 23,
+      "options": {
+        "inlineEditing": true,
+        "panZoom": false,
+        "root": {
+          "background": {
+            "color": {
+              "fixed": "transparent"
+            },
+            "image": {
+              "fixed": ""
+            }
+          },
+          "border": {
+            "color": {
+              "fixed": "dark-green"
+            }
+          },
+          "constraint": {
+            "horizontal": "left",
+            "vertical": "top"
+          },
+          "elements": [
+            {
+              "background": {
+                "color": {
+                  "field": "state1_last",
+                  "fixed": "#D9D9D9"
+                },
+                "image": {
+                  "field": "state1_last",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "size": "contain"
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 15,
+                "text": {
+                  "field": "state1_last",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "top"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 1",
+              "placement": {
+                "height": 33.992191314697266,
+                "left": 12,
+                "rotation": 0,
+                "top": 9,
+                "width": 155.99220275878906
+              },
+              "type": "metric-value"
+            }
+          ],
+          "name": "Element 1764884201119",
+          "placement": {
+            "height": 100,
+            "left": 0,
+            "rotation": 0,
+            "top": 0,
+            "width": 100
+          },
+          "type": "frame"
+        },
+        "showAdvancedTypes": true,
+        "tooltip": {
+          "disableForOneClick": false,
+          "mode": "single"
+        },
+        "zoomToContent": false
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \nselector_last(meter_status, time)['value'] as state1_last\nFROM \n(SELECT \"meter_status\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc)",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "state1",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter status",
+      "type": "canvas"
+    },
+    {
+      "datasource": {
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "transparent",
+            "mode": "fixed"
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 0,
+                "result": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "feed-in to the power grid"
+                }
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "result": {
+                  "color": "orange",
+                  "index": 1,
+                  "text": "supply from the power grid"
+                },
+                "to": 0
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 14,
+        "y": 3
+      },
+      "id": 30,
+      "options": {
+        "inlineEditing": true,
+        "panZoom": false,
+        "root": {
+          "background": {
+            "color": {
+              "fixed": "transparent"
+            },
+            "image": {
+              "fixed": "",
+              "mode": "fixed"
+            }
+          },
+          "border": {
+            "color": {
+              "fixed": "dark-green"
+            }
+          },
+          "constraint": {
+            "horizontal": "left",
+            "vertical": "top"
+          },
+          "elements": [
+            {
+              "background": {
+                "color": {
+                  "field": "meter_active_power",
+                  "fixed": "#D9D9D9"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 16,
+                "text": {
+                  "field": "meter_active_power",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "middle"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "charge",
+              "placement": {
+                "height": 82.99219512939453,
+                "left": 32,
+                "top": 3,
+                "width": 138.99220275878906
+              },
+              "type": "metric-value"
+            }
+          ],
+          "name": "Element 1764884201119",
+          "placement": {
+            "height": 100,
+            "left": 0,
+            "rotation": 0,
+            "top": 0,
+            "width": 100
+          },
+          "type": "frame"
+        },
+        "showAdvancedTypes": true,
+        "tooltip": {
+          "disableForOneClick": false,
+          "mode": "single"
+        },
+        "zoomToContent": false
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \nselector_last(meter_active_power, time)['value'] as meter_active_power\nFROM \n(SELECT \"meter_active_power\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc)",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "state1",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter active power",
+      "type": "canvas"
+    },
+    {
+      "datasource": {
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "transparent",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 4,
+        "x": 4,
+        "y": 5
+      },
+      "id": 15,
+      "options": {
+        "inlineEditing": true,
+        "panZoom": false,
+        "root": {
+          "background": {
+            "color": {
+              "fixed": "transparent"
+            },
+            "image": {
+              "fixed": ""
+            }
+          },
+          "border": {
+            "color": {
+              "fixed": "dark-green"
+            }
+          },
+          "constraint": {
+            "horizontal": "left",
+            "vertical": "top"
+          },
+          "elements": [
+            {
+              "background": {
+                "color": {
+                  "field": "state1_last",
+                  "fixed": "#D9D9D9"
+                },
+                "image": {
+                  "field": "state1_last",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "size": "contain"
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 15,
+                "text": {
+                  "field": "state1_last",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "top"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 1",
+              "placement": {
+                "height": 33.992191314697266,
+                "left": 12,
+                "rotation": 0,
+                "top": 9,
+                "width": 155.99220275878906
+              },
+              "type": "metric-value"
+            }
+          ],
+          "name": "Element 1764884201119",
+          "placement": {
+            "height": 100,
+            "left": 0,
+            "rotation": 0,
+            "top": 0,
+            "width": 100
+          },
+          "type": "frame"
+        },
+        "showAdvancedTypes": true,
+        "tooltip": {
+          "disableForOneClick": false,
+          "mode": "single"
+        },
+        "zoomToContent": false
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \nselector_last(peak_active_power_of_current_day, time)['value'] as state1_last\nFROM \n(SELECT \"peak_active_power_of_current_day\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc)",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "state1",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Peak active power today (W)",
+      "type": "canvas"
+    },
+    {
+      "datasource": {
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "transparent",
+            "mode": "fixed"
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 0,
+                "result": {
+                  "color": "blue",
+                  "index": 0,
+                  "text": "charging"
+                }
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "result": {
+                  "color": "orange",
+                  "index": 1,
+                  "text": "discharging"
+                },
+                "to": 0
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 8,
+        "y": 5
+      },
+      "id": 17,
+      "options": {
+        "inlineEditing": true,
+        "panZoom": false,
+        "root": {
+          "background": {
+            "color": {
+              "fixed": "transparent"
+            },
+            "image": {
+              "fixed": "",
+              "mode": "fixed"
+            }
+          },
+          "border": {
+            "color": {
+              "fixed": "dark-green"
+            }
+          },
+          "constraint": {
+            "horizontal": "left",
+            "vertical": "top"
+          },
+          "elements": [
+            {
+              "background": {
+                "color": {
+                  "field": "battery_charge_discharge_power",
+                  "fixed": "#D9D9D9"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 16,
+                "text": {
+                  "field": "battery_charge_discharge_power",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "charge",
+              "placement": {
+                "height": 24.992191314697266,
+                "left": 31,
+                "top": 3,
+                "width": 115.99226379394531
+              },
+              "type": "metric-value"
+            }
+          ],
+          "name": "Element 1764884201119",
+          "placement": {
+            "height": 100,
+            "left": 0,
+            "rotation": 0,
+            "top": 0,
+            "width": 100
+          },
+          "type": "frame"
+        },
+        "showAdvancedTypes": true,
+        "tooltip": {
+          "disableForOneClick": false,
+          "mode": "single"
+        },
+        "zoomToContent": false
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \nselector_last(battery_charge_discharge_power, time)['value'] as battery_charge_discharge_power\nFROM \n(SELECT \"battery_charge_discharge_power\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc)",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "state1",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Battery charge/discharge",
+      "type": "canvas"
+    },
+    {
+      "datasource": {
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "transparent",
+            "mode": "fixed"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "offline"
+                },
+                "1": {
+                  "index": 1,
+                  "text": "standby"
+                },
+                "2": {
+                  "index": 2,
+                  "text": "running"
+                },
+                "3": {
+                  "index": 3,
+                  "text": "fault"
+                },
+                "4": {
+                  "index": 4,
+                  "text": "sleep mode"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 11,
+        "y": 5
+      },
+      "id": 16,
+      "options": {
+        "inlineEditing": true,
+        "panZoom": false,
+        "root": {
+          "background": {
+            "color": {
+              "fixed": "transparent"
+            },
+            "image": {
+              "fixed": ""
+            }
+          },
+          "border": {
+            "color": {
+              "fixed": "dark-green"
+            }
+          },
+          "constraint": {
+            "horizontal": "left",
+            "vertical": "top"
+          },
+          "elements": [
+            {
+              "background": {
+                "color": {
+                  "field": "state1_last",
+                  "fixed": "#D9D9D9"
+                },
+                "image": {
+                  "field": "state1_last",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "size": "contain"
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#ffffff"
+                },
+                "size": 15,
+                "text": {
+                  "field": "state1_last",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "top"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 1",
+              "placement": {
+                "height": 33.992191314697266,
+                "left": 12,
+                "rotation": 0,
+                "top": 9,
+                "width": 155.99220275878906
+              },
+              "type": "metric-value"
+            }
+          ],
+          "name": "Element 1764884201119",
+          "placement": {
+            "height": 100,
+            "left": 0,
+            "rotation": 0,
+            "top": 0,
+            "width": 100
+          },
+          "type": "frame"
+        },
+        "showAdvancedTypes": true,
+        "tooltip": {
+          "disableForOneClick": false,
+          "mode": "single"
+        },
+        "zoomToContent": false
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \nselector_last(battery_running_status, time)['value'] as state1_last\nFROM \n(SELECT \"battery_running_status\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc)",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "state1",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Battery status",
+      "type": "canvas"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 5,
+      "panels": [],
+      "title": "Battery",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"battery_soc\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "battery_soc",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Battery SOC",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 15
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 12,
+        "y": 8
+      },
+      "id": 19,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"battery_unit1_battery_temperature\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "battery_soc",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Battery temperature",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "kWh",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 20,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"battery_total_charge\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "df5wzxaabsydca"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \"battery_total_discharge\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Total charge/discharge",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "kWh",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "id": 21,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "df5wzxaabsydca"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \"battery_current_day_charge_capacity\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "C",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "df5wzxaabsydca"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \"battery_current_day_discharge_capacity\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "D",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Daily charge/discharge",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 9,
+      "panels": [],
+      "title": "Inverter",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "kW",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "sishort"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 25
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"active_power\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Active power",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "kVar",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 25
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"reactive_power\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "reactive_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Reactive power",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 33
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"power_factor\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Power factor",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Hz",
+            "axisPlacement": "auto",
+            "barAlignment": -1,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepAfter",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 33
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"grid_frequency\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "reactive_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Grid frequency",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": -1,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepAfter",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 41
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"efficiency\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "reactive_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Efficiency",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "C",
+            "axisPlacement": "auto",
+            "barAlignment": -1,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 30
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 41
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"internal_temperature\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "reactive_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Internal temperature",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 49
+      },
+      "id": 22,
+      "panels": [],
+      "title": "Meter",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "V",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "sishort"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 50
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"meter_a_phase_voltage\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter phase A voltage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "V",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "sishort"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 50
+      },
+      "id": 25,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"meter_b_phase_voltage\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter phase B voltage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "V",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "sishort"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 50
+      },
+      "id": 26,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"meter_c_phase_voltage\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter phase C voltage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "A",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "sishort"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 58
+      },
+      "id": 27,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"meter_a_phase_current\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter phase A current",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "A",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "sishort"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 58
+      },
+      "id": 29,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"meter_b_phase_current\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter phase B current",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "A",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "sishort"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 58
+      },
+      "id": 28,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"meter_c_phase_current\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter phase C current",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "W",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "sishort"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 66
+      },
+      "id": 34,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"meter_a_phase_active_power\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter phase A active power",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "W",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "sishort"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 66
+      },
+      "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"meter_b_phase_active_power\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter phase B active power",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "W",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "sishort"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 66
+      },
+      "id": 36,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"meter_c_phase_active_power\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter phase C active power",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "description": "Electricity fed by the inverter to the power grid.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "kWh",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": -0.1
+              }
+            ]
+          },
+          "unit": "sishort"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 74
+      },
+      "id": 32,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"meter_a_phase_current\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter positive active electricity",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "df5wzxaabsydca"
+      },
+      "description": "Power supplied to a distributed system from the power grid.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "orange",
+            "mode": "thresholds",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "kWh",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "orange",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "sishort"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 74
+      },
+      "id": 31,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \"meter_reverse_active_power\", time FROM \"sun2000_monitoring\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo order by time asc",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "active_power",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ]
+          },
+          "table": "sun2000_monitoring"
+        }
+      ],
+      "title": "Meter reverse active power",
+      "type": "timeseries"
+    }
+  ],
+  "preload": false,
+  "refresh": "auto",
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "SUN 2000",
+  "uid": "ad74xkq",
+  "version": 19
+}
