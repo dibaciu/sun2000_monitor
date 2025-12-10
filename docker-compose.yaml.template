@@ -1,10 +1,7 @@
 volumes:
   influxdb_data:
-    external: true
   influxdb_explorer:
-    external: true
   grafana_data:
-    external: true
 
 networks:
   sun2000_monitor:
