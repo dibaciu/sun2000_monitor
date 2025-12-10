@@ -92,5 +92,5 @@ print(f' - {INFLUXDB_EXPLORER_CONFIG_FILE}')
 print(f' - {DOCKER_COMPOSE_FILE}')
 
 print('Setup complete. You can now build and start the containers with:')
-print(f'  docker-compose -f {DOCKER_COMPOSE_FILE} build')
-print(f'  docker-compose -f {DOCKER_COMPOSE_FILE} up -d')
+print(f'  docker compose -f {DOCKER_COMPOSE_FILE} build')
+print(f'  docker compose -f {DOCKER_COMPOSE_FILE} up -d')
