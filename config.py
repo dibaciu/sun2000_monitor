@@ -16,7 +16,7 @@ def get_config():
         influxdb_token=os.environ.get('INFLUXDB_TOKEN'),
         influxdb_host=os.environ.get('INFLUXDB_HOST'),
         influxdb_port=int(os.environ.get('INFLUXDB_PORT', '8181')),
-        influxdb_dbname=os.environ.get('INFLUXDB_DBNAME', 'sun2000_data'),
+        influxdb_dbname=os.environ.get('INFLUXDB_DBNAME', 'sun2000_monitoring'),
         sun2000_inverter_host=os.environ.get('SUN2000_INVERTER_HOST'),
         sun2000_inverter_port=int(os.environ.get('SUN2000_INVERTER_PORT', '6607')),
         polling_interval_seconds=int(os.environ.get('POLLING_INTERVAL_SECONDS', '60'))
