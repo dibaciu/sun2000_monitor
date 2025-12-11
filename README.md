@@ -67,8 +67,27 @@ Generated environment files:
 `docker compose up -d`
 
 ### Accessing the services
-- Grafana: `http://<your_host>:3000` (default user: `admin`, password: `admin`)
+- Grafana: `http://<your_host>:3000` (default user: `admin`, password: `admin`). If you set a custom password during init, find it in `.env.grafana` file.
 - InfluxDB Explorer: `http://<your_host>:8888`
 
 ### Grafana dashboard
 Import the dashboard from `SUN 2000.json` into your Grafana instance to visualize the data collected from the inverter.
+
+
+### Notes
+
+Plan was to run all this on a Raspberry Pi 5. I ran into issues getting InfluxDB 3 image running there (same issue as [here](https://github.com/influxdata/influxdb/issues/26066)).
+As described there the fix was to build a custom InfluxDB 3 image for `linux/arm64` platform, with `jmealloc` settings adjusted for page size 16GB.
+
+- forked the official InfluxDB 3 [repo](https://github.com/influxdata/influxdb).
+- used branch 3.7 (latest as of June 2024).
+- [modified](https://github.com/influxdata/influxdb/compare/3.7...dibaciu:influxdb:3.7?expand=1) `Dockerfile` to set `JEMALLOC_SYS_WITH_LG_PAGE=16`; other minor changes were needed to get the build working.
+- cross compile for `linux/arm64` using `docker buildx` on a Mac M1 32 GB. I had to increase the builder instance memory to 28 GB to get the build to complete.
+
+```azure
+docker buildx build --platform linux/arm64 -t dibaciu/influxdb3:3.7
+```
+
+### Screenshot
+
+![Grafana Dashboard Screenshot](sun2000_monitor.jpg)
