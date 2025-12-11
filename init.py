@@ -18,7 +18,7 @@ DOCKER_COMPOSE_TEMPLATE_FILE = 'docker-compose.yaml.template'
 
 def generate_influxdb_token(length=86):
     chars = string.ascii_letters + string.digits + '-'
-    return f'api3_{"".join(random.choices(chars, k=length))}'
+    return f'apiv3_{"".join(random.choices(chars, k=length))}'
 
 def generate_explorer_session_secret_key(length=64):
     chars = string.ascii_letters + string.digits + '-'
