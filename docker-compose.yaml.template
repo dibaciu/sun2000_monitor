@@ -10,6 +10,7 @@ services:
   influxdb:
     image: dibaciu/influxdb3:3.7
     container_name: influxdb
+    restart: unless-stopped
     environment:
       INFLUXDB3_NODE_IDENTIFIER_PREFIX: node0
       INFLUXDB3_OBJECT_STORE: file
