@@ -16,6 +16,7 @@ services:
       INFLUXDB3_OBJECT_STORE: file
       INFLUXDB3_DB_DIR: /var/lib/influxdb3
       INFLUXDB3_ADMIN_TOKEN_FILE: /home/influxdb3/influxdb3.admin.token
+      INFLUXD_LOG_LEVEL: error
     ports:
       - "${INFLUXDB_PORT}:${INFLUXDB_PORT}"
     networks:
