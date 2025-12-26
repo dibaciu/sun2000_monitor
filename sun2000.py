@@ -14,6 +14,9 @@ class RegisterData:
     source: str
     value: Union[str, int, float, None]
 
+class Sun2000NotConnectedError(Exception):
+    pass
+
 class Sun2000:
     def __init__(self, config:MonitorConfig)->None:
         self.config = config
@@ -74,10 +77,14 @@ class Sun2000:
     def read_data(self, register:Union[registers.InverterEquipmentRegister, registers.BatteryEquipmentRegister, registers.MeterEquipmentRegister], read_formatted:bool=False)->Union[str, int, float, None]:
         if not self.inverter.isConnected():
             self.inverter.connect()
-        if read_formatted:
-            data = self.inverter.read_formatted(register=register)
-        else:
-            data = self.inverter.read(register=register)
+        try:
+            if read_formatted:
+                data = self.inverter.read_formatted(register=register)
+            else:
+                data = self.inverter.read(register=register)
+        except ValueError as e:
+            if 'Inverter is not connected' in str(e):
+                raise Sun2000NotConnectedError from e
         return data
 
     def poll_all(self):
