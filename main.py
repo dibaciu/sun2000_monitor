@@ -2,7 +2,7 @@ import time
 
 from config import get_config
 from influxdb import InfluxDBHandler
-from sun2000 import Sun2000
+from sun2000 import Sun2000, Sun2000NotConnectedError
 from influxdb_client_3 import Point
 import logging
 
@@ -25,6 +25,6 @@ while True:
             Point(influxdb_client.config.influxdb_dbname).tag("source", register_data.source).field(attribute, register_data.value) for attribute, register_data in sun2000_client.poll_all().items()
         ]
         influxdb_client.client.write(points, )
-    except ModbusIOException as e:
+    except (ModbusIOException, Sun2000NotConnectedError) as e:
         logger.error(e)
     time.sleep(config.polling_interval_seconds)
