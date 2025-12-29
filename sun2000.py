@@ -40,6 +40,8 @@ class Sun2000:
             "efficiency",
             "internal_temperature",
             "device_status",
+            "accumulated_energy_yield",
+            "daily_energy_yield",
             "battery_running_status",
             "battery_working_mode_settings",
             "battery_charge_discharge_power",
@@ -203,6 +205,15 @@ class Sun2000:
     @property
     def device_status(self, source='inverter')->RegisterData:
         return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.DeviceStatus))
+
+    @property
+    def accumulated_energy_yield(self, source='inverter') -> RegisterData:
+        # kWh
+        return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.AccumulatedEnergyYield))
+
+    @property
+    def daily_energy_yield(self, source='inverter') -> RegisterData:
+        return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.DailyEnergyYield))
 
     @property
     def battery_running_status(self, source='battery')->RegisterData:
