@@ -31,6 +31,7 @@ for config_files in [COMMON_ENV_FILE, INFLUXDB_EXPLORER_ENV_FILE, GRAFANA_ENV_FI
 os.environ["INFLUXDB_HOST"] = input("InfluxDB Host (default influxdb): ") or "influxdb"
 os.environ["INFLUXDB_PORT"] = input("InfluxDB Port (default 8181): ") or "8181"
 os.environ["INFLUXDB_DBNAME"] = "sun2000_monitoring"
+os.environ["INFLUXDB_DBNAME_DAILY"] = "sun2000_monitoring_daily"
 os.environ["INFLUXDB_ADMIN_TOKEN"] = generate_influxdb_token()
 os.environ["EXPLORER_SESSION_SECRET_KEY"] = generate_explorer_session_secret_key()
 os.environ["EXPLORER_PORT"] = input("InfluxDB Explorer Port (default 8888): ") or "8888"
