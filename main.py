@@ -19,13 +19,13 @@ logger.info(f'InfluxDB ping server version: {influxdb_client.ping()}')
 logger.info(f'Sun2000 ping server: {sun2000_client.ping()}')
 logger.info(f'Polling every {config.polling_interval_seconds} seconds')
 
-def daily_rollup(influxdb_client: InfluxDBHandler, today:datetime=None):
+def daily_rollup(influxdb_client: InfluxDBHandler, rollout_day:datetime=None):
     # =========================
     # TIME RANGE (previous_day)
     # =========================
-    if today is None:
-        today = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
-    previous_day = today - timedelta(days=1)
+    if rollout_day is None:
+        rollout_day = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+    previous_day = rollout_day - timedelta(days=1)
 
     # =========================
     # FlightSQL query
@@ -37,7 +37,7 @@ def daily_rollup(influxdb_client: InfluxDBHandler, today:datetime=None):
       MAX(meter_positive_active_electricity) - MIN(meter_positive_active_electricity) AS feed_in
     FROM sun2000_monitoring
     WHERE time >= TIMESTAMP '{previous_day.isoformat()}'
-      AND time <  TIMESTAMP '{today.isoformat()}'
+      AND time <  TIMESTAMP '{rollout_day.isoformat()}'
     """
     table = influxdb_client.client.query(query)
     if table.num_rows == 0:
@@ -63,12 +63,12 @@ def daily_rollup(influxdb_client: InfluxDBHandler, today:datetime=None):
                           .field("house_from_pv", float(house_from_pv))
                           .time(previous_day.isoformat())
                           )
-    # print("Daily rollup written successfully:")
-    # print(f"Date: {previous_day.date()}")
-    # print(f"PV energy: {pv_energy:.2f} kWh")
-    # print(f"House from grid: {house_from_grid:.2f} kWh")
-    # print(f"Feed-in: {feed_in:.2f} kWh")
-    # print(f"House from PV: {house_from_pv:.2f} kWh")
+    print("Daily rollup written successfully:")
+    print(f"Date: {previous_day.date()}")
+    print(f"PV energy: {pv_energy:.2f} kWh")
+    print(f"House from grid: {house_from_grid:.2f} kWh")
+    print(f"Feed-in: {feed_in:.2f} kWh")
+    print(f"House from PV: {house_from_pv:.2f} kWh")
 
 
 def main():
@@ -85,8 +85,8 @@ def main():
         if last_rollout_day < previous_day:
             try:
                 for day in range((previous_day - last_rollout_day).days):
-                    logger.info(f"Processing rollup for day: {last_rollout_day + timedelta(days=day+1)}")
-                    daily_rollup(influxdb_client=influxdb_client, today=datetime.combine(last_rollout_day + timedelta(days=day+1), datetime.min.time(), tzinfo=timezone.utc))
+                    logger.info(f"Processing rollup for day: {last_rollout_day + timedelta(days=day+2)}")
+                    daily_rollup(influxdb_client=influxdb_client, rollout_day=datetime.combine(last_rollout_day + timedelta(days=day + 1), datetime.min.time(), tzinfo=timezone.utc))
                     last_rollout_day = date.today() - timedelta(days=1)
             except Exception as e:
                 logger.error(f"Daily rollup failed: {e}")
