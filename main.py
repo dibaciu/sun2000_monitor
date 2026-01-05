@@ -1,6 +1,6 @@
 import time
 
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta, date, timezone
 from influxdb_client_3 import Point, InfluxDBError, InfluxDB3ClientQueryError
 import logging
 from pymodbus.exceptions import ModbusIOException
@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 logger = logging.getLogger(__name__)
 
 LOCAL_TZ = ZoneInfo("Europe/Bucharest")
-UTC = ZoneInfo("UTC")
+UTC = timezone.utc
 ROLLOUT_HOUR_LOCAL = 0
 ROLLOUT_MINUTE_LOCAL = 1
 ROLLOUT_FORCE = False
