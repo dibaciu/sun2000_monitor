@@ -2,7 +2,7 @@ FROM python:3.13.0-slim
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends tzdata \
-    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
 
