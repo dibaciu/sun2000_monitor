@@ -14,7 +14,7 @@ from sun2000 import Sun2000, Sun2000NotConnectedError
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-LOCAL_TZ = datetime.now().astimezone().tzinfo
+LOCAL_TZ = ZoneInfo("Europe/Bucharest")
 UTC = ZoneInfo("UTC")
 ROLLOUT_HOUR_LOCAL = 0
 ROLLOUT_MINUTE_LOCAL = 1
@@ -171,7 +171,7 @@ def main():
             logger.error(e)
 
         now_local = datetime.now(LOCAL_TZ)
-        if now_local.hour == ROLLOUT_HOUR_LOCAL and now_local.minute == ROLLOUT_MINUTE_LOCAL or ROLLOUT_FORCE:
+        if (now_local.hour == ROLLOUT_HOUR_LOCAL and now_local.minute == ROLLOUT_MINUTE_LOCAL) or ROLLOUT_FORCE:
             last_rollup_utc = get_last_rollup_time_utc(handler=influxdb_handler, rollup_type="energy_breakdown")
             last_rollup_day_local = last_rollup_utc_to_local(last_rollup_utc=last_rollup_utc)
             latest_complete_day = get_latest_complete_day()
