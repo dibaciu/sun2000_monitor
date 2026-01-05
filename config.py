@@ -10,6 +10,7 @@ class MonitorConfig:
     sun2000_inverter_port: int
     influxdb_dbname: str
     influxdb_dbname_daily: str
+    influxdb_dbname_rollup_state: str
     polling_interval_seconds: int
 
 def get_config():
@@ -19,6 +20,7 @@ def get_config():
         influxdb_port=int(os.environ.get('INFLUXDB_PORT', '8181')),
         influxdb_dbname=os.environ.get('INFLUXDB_DBNAME', 'sun2000_monitoring'),
         influxdb_dbname_daily=os.environ.get('INFLUXDB_DBNAME_DAILY', 'sun2000_monitoring_daily'),
+        influxdb_dbname_rollup_state=os.environ.get('INFLUXDB_DBNAME_ROLLUP_STATE', 'sun2000_monitoring_rollup_state'),
         sun2000_inverter_host=os.environ.get('SUN2000_INVERTER_HOST'),
         sun2000_inverter_port=int(os.environ.get('SUN2000_INVERTER_PORT', '6607')),
         polling_interval_seconds=int(os.environ.get('POLLING_INTERVAL_SECONDS', '60'))
