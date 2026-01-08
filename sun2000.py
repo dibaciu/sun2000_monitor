@@ -137,24 +137,7 @@ class Sun2000:
 
     @property
     def state1(self, source='inverter')->RegisterData:
-        state1_mapping = {
-            '0': 'Standby',
-            '1': 'Grid connected',
-            '2': 'Grid connected',
-            '3': 'Grid connection with derating due to power rationing',
-            '4': 'Grid connection with derating due to internal causes of the solar inverter',
-            '5': 'Normal stop',
-            '6': 'Stop due to faults',
-            '7': 'Stop due to power rationing',
-            '8': 'Shutdown',
-            '9': 'Spot check',
-        }
-        state1_u16 = self.read_data(registers.InverterEquipmentRegister.State1)
-        try:
-            state1 = [state1_mapping[str(len(state1_u16) - 1 - i)] for i in range(len(state1_u16) ) if state1_u16[i] == '1' and str(len(state1_u16) - 1 - i) in state1_mapping][0]
-        except IndexError:
-            state1 = 'Unknown'
-        return RegisterData(source, state1)
+        return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.State1))
 
     @property
     def state2(self, source='inverter')->RegisterData:
