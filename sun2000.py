@@ -137,7 +137,18 @@ class Sun2000:
 
     @property
     def state1(self, source='inverter')->RegisterData:
-        return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.State1))
+        state1_int = int(self.read_data(registers.InverterEquipmentRegister.State1), 2)
+        if state1_int & (1 << 6):
+            return RegisterData(source, 6)  # Fault
+        if state1_int & (1 << 8):
+            return RegisterData(source, 8)  # Shutdown
+        if state1_int & (1 << 3) or state1_int & (1 << 4):
+            return RegisterData(source, 4)  # Derating
+        if state1_int & (1 << 1):
+            return RegisterData(source, 2)  # Grid connected
+        if state1_int & (1 << 0):
+            return RegisterData(source, 1)  # Standby
+        return RegisterData(source, 0)  # Unknown
 
     @property
     def state2(self, source='inverter')->RegisterData:
