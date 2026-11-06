@@ -16,7 +16,7 @@ services:
       INFLUXDB3_OBJECT_STORE: file
       INFLUXDB3_DB_DIR: /var/lib/influxdb3
       INFLUXDB3_ADMIN_TOKEN_FILE: /home/influxdb3/influxdb3.admin.token
-      INFLUXD_LOG_LEVEL: error
+      LOG_FILTER: error
     ports:
       - "${INFLUXDB_PORT}:${INFLUXDB_PORT}"
     networks:
@@ -26,6 +26,11 @@ services:
       - type: bind
         source: ./influxdb3.admin.token
         target: /home/influxdb3/influxdb3.admin.token
+    ulimits:
+      nofile:
+        soft: "65536"
+        hard: "65536"
+
   explorer:
     image: influxdata/influxdb3-ui:1.4.0
     container_name: influxdb3-explorer
@@ -55,8 +60,10 @@ services:
       - influxdb
     volumes:
       - grafana_data:/var/lib/grafana
-      - /home/dibaciu/.config/letsencrypt/live/dibaciu.ro/fullchain.pem:${GRAFANA_SERVER_CERT_FILE}:ro
-      - /home/dibaciu/.config/letsencrypt/live/dibaciu.ro/privkey.pem:${GRAFANA_SERVER_CERT_KEY}:ro
+      # Copies of the cert, kept current by the certbot deploy hook (cert_mgmt repo). The hook
+      # overwrites these files in place (cp), so the container sees the new content without a restart.
+      - ./grafana.crt:${GRAFANA_SERVER_CERT_FILE}:ro
+      - ./grafana.key:${GRAFANA_SERVER_CERT_KEY}:ro
     env_file:
       - .env.grafana
 
@@ -75,7 +82,7 @@ services:
     env_file:
       - .env
       - .env.monitor
-     volumes:
+    volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
