@@ -46,6 +46,11 @@ os.environ["GRAFANA_SERVER_CERTS_WATCH_INTERVAL"] = input("Grafana certs watch i
 os.environ["SUN2000_INVERTER_HOST"] = input("Sun2000 Inverter Host/IP: ")
 os.environ["SUN2000_INVERTER_PORT"] = input("Sun2000 Inverter Port (default 6607): ") or "6607"
 os.environ["POLLING_INTERVAL_SECONDS"] = input("Polling Interval Seconds (default 5): ") or "5"
+os.environ["MQTT_HOST"] = input("MQTT broker host for Home Assistant (empty = MQTT off): ")
+os.environ["MQTT_PORT"] = input("MQTT broker port (default 1883): ") or "1883"
+os.environ["MQTT_USERNAME"] = input("MQTT username (empty = none): ")
+os.environ["MQTT_PASSWORD"] = input("MQTT password (empty = none): ")
+os.environ["MQTT_PUBLISH_INTERVAL_SECONDS"] = input("MQTT publish interval seconds (default 30): ") or "30"
 
 with open(COMMON_ENV_TEMPLATE_FILE) as f:
     template_common_env = string.Template(f.read())

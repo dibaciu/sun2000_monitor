@@ -1,3 +1,4 @@
 influxdb3-python ~= 0.16.0
 sun2000-modbus ~= 2.6.0
 pymodbus ~= 3.7.4
+paho-mqtt ~= 2.1

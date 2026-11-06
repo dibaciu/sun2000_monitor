@@ -1,5 +1,5 @@
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 
 @dataclass(kw_only=True)
 class MonitorConfig:
@@ -12,6 +12,17 @@ class MonitorConfig:
     influxdb_dbname_daily: str
     influxdb_dbname_rollup_state: str
     polling_interval_seconds: int
+    # MQTT / Home Assistant (optional: publishing is off while mqtt_host is empty)
+    mqtt_host: str = ''
+    mqtt_port: int = 1883
+    mqtt_username: str = ''
+    mqtt_password: str = ''
+    mqtt_publish_interval_seconds: int = 30
+    mqtt_topic_prefix: str = 'sun2000'
+    mqtt_discovery_prefix: str = 'homeassistant'
+
+OPTIONAL_FIELDS = {'mqtt_host', 'mqtt_port', 'mqtt_username', 'mqtt_password', 'mqtt_publish_interval_seconds',
+                   'mqtt_topic_prefix', 'mqtt_discovery_prefix'}
 
 def get_config():
     config = MonitorConfig(
@@ -23,10 +34,17 @@ def get_config():
         influxdb_dbname_rollup_state=os.environ.get('INFLUXDB_DBNAME_ROLLUP_STATE', 'sun2000_monitoring_rollup_state'),
         sun2000_inverter_host=os.environ.get('SUN2000_INVERTER_HOST'),
         sun2000_inverter_port=int(os.environ.get('SUN2000_INVERTER_PORT', '6607')),
-        polling_interval_seconds=int(os.environ.get('POLLING_INTERVAL_SECONDS', '60'))
+        polling_interval_seconds=int(os.environ.get('POLLING_INTERVAL_SECONDS', '60')),
+        mqtt_host=os.environ.get('MQTT_HOST', ''),
+        mqtt_port=int(os.environ.get('MQTT_PORT', '1883')),
+        mqtt_username=os.environ.get('MQTT_USERNAME', ''),
+        mqtt_password=os.environ.get('MQTT_PASSWORD', ''),
+        mqtt_publish_interval_seconds=int(os.environ.get('MQTT_PUBLISH_INTERVAL_SECONDS', '30')),
+        mqtt_topic_prefix=os.environ.get('MQTT_TOPIC_PREFIX', 'sun2000'),
+        mqtt_discovery_prefix=os.environ.get('MQTT_DISCOVERY_PREFIX', 'homeassistant'),
     )
     # Validate required fields
-    for field in config.__dataclass_fields__.values():
-        if getattr(config, field.name) is None:
+    for field in fields(config):
+        if field.name not in OPTIONAL_FIELDS and getattr(config, field.name) is None:
             raise ValueError(f"Missing required configuration for {field.name}")
     return config

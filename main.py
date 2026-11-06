@@ -10,6 +10,7 @@ from zoneinfo import ZoneInfo
 from config import get_config
 from influxdb import InfluxDBHandler
 from sun2000 import Sun2000, CONNECTION_ERRORS
+from mqtt_publisher import MqttPublisher
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -237,11 +238,20 @@ def main():
     logger.info(f'Sun2000 ping server: {sun2000_client.ping()}')
     logger.info(f'Polling every {config.polling_interval_seconds} seconds')
 
+    mqtt_publisher = None
+    if config.mqtt_host:
+        mqtt_publisher = MqttPublisher(config)
+        mqtt_publisher.start()
+    else:
+        logger.info('MQTT_HOST not set — MQTT / Home Assistant publishing is off')
+
     while True:
         cycle_start = time.monotonic()
+        values = None
         try:
+            values = sun2000_client.poll_all()
             points = [
-                Point(influxdb_handler.config.influxdb_dbname).tag("source", register_data.source).field(attribute, register_data.value) for attribute, register_data in sun2000_client.poll_all().items()
+                Point(influxdb_handler.config.influxdb_dbname).tag("source", register_data.source).field(attribute, register_data.value) for attribute, register_data in values.items()
             ]
             if points:
                 influxdb_handler.client.write(points, )
@@ -252,6 +262,13 @@ def main():
             logger.error(f'InfluxDB write failed: {e}')
         except Exception:
             logger.exception('Unexpected error in polling cycle')
+
+        # MQTT is independent of InfluxDB: values are published even if the write above failed
+        if mqtt_publisher and values:
+            try:
+                mqtt_publisher.publish({attribute: register_data.value for attribute, register_data in values.items()})
+            except Exception:
+                logger.exception('MQTT publish failed')
 
         now_local = datetime.now(LOCAL_TZ)
         if (now_local.hour == ROLLOUT_HOUR_LOCAL and now_local.minute == ROLLOUT_MINUTE_LOCAL) or ROLLOUT_FORCE:
