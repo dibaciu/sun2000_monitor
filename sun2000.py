@@ -1,5 +1,7 @@
 import logging
+import statistics
 import time
+from collections import deque
 from dataclasses import dataclass
 from typing import Union, Dict, List, Tuple
 
@@ -27,6 +29,7 @@ STATIC_ATTRIBUTES = frozenset({
 })
 STATIC_REFRESH_SECONDS = 6 * 3600
 MAX_PV_STRINGS = 24  # registers PV1..PV24 exist; the inverter's NumberOfPVStrings picks how many are polled
+HOUSE_MEDIAN_WINDOW = 3  # cycles; see _add_derived()
 
 Register = Union[registers.InverterEquipmentRegister, registers.BatteryEquipmentRegister, registers.MeterEquipmentRegister]
 
@@ -60,6 +63,7 @@ class Sun2000:
         self._unreadable_blocks: set = set()
         self._failing: set = set()
         self._probing = False
+        self._house_history: deque = deque(maxlen=HOUSE_MEDIAN_WINDOW)
         self.registers_to_poll = [
             "model",
             "sn",
@@ -167,6 +171,7 @@ class Sun2000:
 
     def reset(self) -> None:
         """Drop the TCP connection so the next cycle starts with a fresh one."""
+        self._house_history.clear()  # don't smooth across an outage
         try:
             self.inverter.disconnect()
         except Exception:
@@ -295,8 +300,7 @@ class Sun2000:
         self._add_derived(result)
         return result
 
-    @staticmethod
-    def _add_derived(result: Dict[str, RegisterData]) -> None:
+    def _add_derived(self, result: Dict[str, RegisterData]) -> None:
         """Values computed from what was read (source tag 'derived')."""
         def value(name):
             item = result.get(name)
@@ -305,7 +309,13 @@ class Sun2000:
         if active is not None and meter is not None:
             # meter_active_power > 0 is feed-in, < 0 is import, so the house uses what the
             # inverter delivers minus what goes to the grid.
-            result['house_consumption_power'] = RegisterData('derived', round(float(active - meter), 1))
+            # The meter reacts about one cycle faster than the inverter's active_power, so on fast
+            # PV changes (clouds) the raw difference spikes up or down for a cycle or two. A median
+            # over the last HOUSE_MEDIAN_WINDOW cycles removes those spikes (it follows real changes
+            # after one cycle), and consumption can't be negative, so it is clipped at 0.
+            self._house_history.append(float(active - meter))
+            smoothed = max(0.0, statistics.median(self._house_history))
+            result['house_consumption_power'] = RegisterData('derived', round(smoothed, 1))
         n = 1
         while f'pv{n}_voltage' in result or f'pv{n}_current' in result:
             voltage, current = value(f'pv{n}_voltage'), value(f'pv{n}_current')
