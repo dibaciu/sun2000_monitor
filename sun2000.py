@@ -1,13 +1,32 @@
 import logging
+import time
 from dataclasses import dataclass
-from typing import Union, Dict
+from typing import Union, Dict, List, Tuple
 
+from pymodbus.exceptions import ConnectionException, ModbusIOException
+from sun2000_modbus import datatypes
 from sun2000_modbus import inverter
 from sun2000_modbus import registers
 
 from config import MonitorConfig
 
 logger = logging.getLogger(__name__)
+
+# Block reads: neighbouring registers are fetched with one Modbus request instead of one each.
+# Huawei documents a per-request limit; 64 registers stays well inside it on the models I know of.
+MAX_REGISTERS_PER_READ = 64
+# Registers up to this many addresses apart are merged into one read (the gap is read and discarded).
+MAX_GAP = 16
+# Values that only change with a firmware update or a hardware change: read at startup and then
+# every STATIC_REFRESH_SECONDS; in between the cached value is written to InfluxDB every cycle.
+STATIC_ATTRIBUTES = frozenset({
+    "model", "sn", "firmware_version", "software_version",
+    "rated_power", "maximum_active_power", "maximum_apparent_power",
+    "battery_rated_capacity", "meter_meter_type",
+})
+STATIC_REFRESH_SECONDS = 6 * 3600
+
+Register = Union[registers.InverterEquipmentRegister, registers.BatteryEquipmentRegister, registers.MeterEquipmentRegister]
 
 @dataclass()
 class RegisterData:
@@ -17,10 +36,28 @@ class RegisterData:
 class Sun2000NotConnectedError(Exception):
     pass
 
+class Sun2000ReadError(Exception):
+    """The inverter answered, but rejected the request (Modbus exception response)."""
+    pass
+
+class _Probe(Exception):
+    """Internal: used once at startup to learn which register each property reads."""
+    def __init__(self, register):
+        self.register = register
+
+# Errors that mean the link to the inverter is broken: abort the cycle and reconnect.
+CONNECTION_ERRORS = (Sun2000NotConnectedError, ConnectionException, ModbusIOException)
+
 class Sun2000:
     def __init__(self, config:MonitorConfig)->None:
         self.config = config
         self.inverter = inverter.Sun2000(host=config.sun2000_inverter_host, port=config.sun2000_inverter_port)
+        self._cache: Dict[Register, Union[str, int, float]] = {}
+        self._static: Dict[str, RegisterData] = {}
+        self._static_read_at: Union[float, None] = None
+        self._unreadable_blocks: set = set()
+        self._failing: set = set()
+        self._probing = False
         self.registers_to_poll = [
             "model",
             "sn",
@@ -71,26 +108,147 @@ class Sun2000:
             "meter_b_phase_active_power",
             "meter_c_phase_active_power",
         ]
+        self._attribute_registers = self._discover_registers()
+        self._dynamic_blocks = self._plan_blocks(
+            [self._attribute_registers[a] for a in self.registers_to_poll if a not in STATIC_ATTRIBUTES])
+        self._static_blocks = self._plan_blocks(
+            [self._attribute_registers[a] for a in self.registers_to_poll if a in STATIC_ATTRIBUTES])
+        logger.info(f'Polling {len(self.registers_to_poll)} values: {len(self._dynamic_blocks)} block reads per cycle, '
+                    f'{len(self._static_blocks)} more every {STATIC_REFRESH_SECONDS // 3600} h for static values')
+
+    # ── connection ──────────────────────────────────────────────────────────────────────────
 
     def ping(self)->bool:
         self.inverter.connect()
         return self.inverter.isConnected()
 
-    def read_data(self, register:Union[registers.InverterEquipmentRegister, registers.BatteryEquipmentRegister, registers.MeterEquipmentRegister], read_formatted:bool=False)->Union[str, int, float, None]:
+    def _ensure_connected(self) -> None:
         if not self.inverter.isConnected():
             self.inverter.connect()
-        try:
-            if read_formatted:
-                data = self.inverter.read_formatted(register=register)
-            else:
-                data = self.inverter.read(register=register)
-        except ValueError as e:
-            if 'Inverter is not connected' in str(e):
-                raise Sun2000NotConnectedError from e
-        return data
+            if not self.inverter.isConnected():
+                raise Sun2000NotConnectedError(f'cannot connect to inverter at {self.config.sun2000_inverter_host}:{self.config.sun2000_inverter_port}')
 
-    def poll_all(self):
-        return dict([(register, getattr(self, register)) for register in self.registers_to_poll])
+    def reset(self) -> None:
+        """Drop the TCP connection so the next cycle starts with a fresh one."""
+        try:
+            self.inverter.disconnect()
+        except Exception:
+            pass
+
+    # ── reading ─────────────────────────────────────────────────────────────────────────────
+
+    def _read_registers(self, address: int, count: int) -> bytes:
+        """Raw bytes of `count` holding registers starting at `address`."""
+        self._ensure_connected()
+        response = self.inverter.inverter.read_holding_registers(address=address, count=count, slave=self.inverter.slave)
+        if isinstance(response, ModbusIOException):
+            raise response
+        if response.isError():
+            raise Sun2000ReadError(f'registers {address}..{address + count - 1}: {response}')
+        return b''.join(r.to_bytes(2, byteorder='big') for r in response.registers)
+
+    @staticmethod
+    def _decode(register: Register, raw: bytes) -> Union[str, int, float]:
+        # Same decoding as sun2000_modbus.Sun2000.read(), so values and types stay identical.
+        value = datatypes.decode(raw, register.value.data_type)
+        return value if register.value.gain is None else value / register.value.gain
+
+    def read_data(self, register: Register, read_formatted: bool = False) -> Union[str, int, float, None]:
+        if self._probing:
+            raise _Probe(register)
+        if not read_formatted and register in self._cache:
+            return self._cache[register]
+        if read_formatted:
+            self._ensure_connected()
+            try:
+                return self.inverter.read_formatted(register=register)
+            except ValueError as e:
+                if 'Inverter is not connected' in str(e):
+                    raise Sun2000NotConnectedError from e
+                raise
+        # Not prefetched (e.g. its block was rejected): read this one register on its own.
+        return self._decode(register, self._read_registers(register.value.address, register.value.quantity))
+
+    def _discover_registers(self) -> Dict[str, Register]:
+        """Map each polled attribute to the register its property reads (every property calls
+        read_data() first, so a probing read_data() reveals it without touching the inverter)."""
+        found = {}
+        self._probing = True
+        try:
+            for attribute in self.registers_to_poll:
+                try:
+                    getattr(self, attribute)
+                except _Probe as probe:
+                    found[attribute] = probe.register
+                else:
+                    raise RuntimeError(f'property {attribute} does not call read_data()')
+        finally:
+            self._probing = False
+        return found
+
+    @staticmethod
+    def _plan_blocks(regs: List[Register]) -> List[Tuple[int, int, Tuple[Register, ...]]]:
+        """Group registers into (start, count, registers) blocks for single Modbus reads."""
+        blocks = []
+        for reg in sorted(set(regs), key=lambda r: r.value.address):
+            start, end = reg.value.address, reg.value.address + reg.value.quantity
+            if blocks:
+                b_start, b_count, b_regs = blocks[-1]
+                b_end = b_start + b_count
+                if start - b_end <= MAX_GAP and max(end, b_end) - b_start <= MAX_REGISTERS_PER_READ:
+                    blocks[-1] = (b_start, max(end, b_end) - b_start, b_regs + (reg,))
+                    continue
+            blocks.append((start, end - start, (reg,)))
+        return blocks
+
+    def _prefetch(self, blocks) -> None:
+        for start, count, regs in blocks:
+            if (start, count) in self._unreadable_blocks:
+                continue  # values are read one by one in read_data()
+            try:
+                raw = self._read_registers(start, count)
+            except Sun2000ReadError as e:
+                logger.warning(f'Block read rejected, reading these {len(regs)} values one by one from now on: {e}')
+                self._unreadable_blocks.add((start, count))
+                continue
+            for reg in regs:
+                offset = (reg.value.address - start) * 2
+                self._cache[reg] = self._decode(reg, raw[offset:offset + reg.value.quantity * 2])
+
+    def poll_all(self) -> Dict[str, RegisterData]:
+        """Read all values. Connection problems raise (caller reconnects); a value that fails on
+        its own is left out of this cycle and logged once until it works again."""
+        refresh_static = self._static_read_at is None or time.monotonic() - self._static_read_at > STATIC_REFRESH_SECONDS
+        if refresh_static:
+            self._unreadable_blocks.clear()  # give rejected blocks another chance now and then
+        self._cache = {}
+        result: Dict[str, RegisterData] = {}
+        try:
+            self._prefetch(self._dynamic_blocks + (self._static_blocks if refresh_static else []))
+            for attribute in self.registers_to_poll:
+                if attribute in STATIC_ATTRIBUTES and not refresh_static:
+                    if attribute in self._static:  # a static value that failed is retried at the next refresh
+                        result[attribute] = self._static[attribute]
+                    continue
+                try:
+                    result[attribute] = getattr(self, attribute)
+                except CONNECTION_ERRORS:
+                    raise
+                except Exception as e:
+                    if attribute not in self._failing:
+                        logger.warning(f'Skipping {attribute}: {e!r} (logged once until it recovers)')
+                        self._failing.add(attribute)
+                    continue
+                if attribute in self._failing:
+                    logger.info(f'{attribute} readable again')
+                    self._failing.discard(attribute)
+                if attribute in STATIC_ATTRIBUTES:
+                    self._static[attribute] = result[attribute]
+        finally:
+            self._cache = {}
+        if refresh_static:
+            self._static_read_at = time.monotonic()
+        return result
 
     @property
     def model(self, source='inverter')->RegisterData:

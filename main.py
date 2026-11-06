@@ -9,7 +9,7 @@ from zoneinfo import ZoneInfo
 
 from config import get_config
 from influxdb import InfluxDBHandler
-from sun2000 import Sun2000, Sun2000NotConnectedError
+from sun2000 import Sun2000, CONNECTION_ERRORS
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -227,21 +227,32 @@ def main():
     logger.info(f'Polling every {config.polling_interval_seconds} seconds')
 
     while True:
+        cycle_start = time.monotonic()
         try:
             points = [
                 Point(influxdb_handler.config.influxdb_dbname).tag("source", register_data.source).field(attribute, register_data.value) for attribute, register_data in sun2000_client.poll_all().items()
             ]
-            influxdb_handler.client.write(points, )
-        except (ModbusIOException, Sun2000NotConnectedError) as e:
-            logger.error(e)
+            if points:
+                influxdb_handler.client.write(points, )
+        except CONNECTION_ERRORS as e:
+            logger.error(f'Inverter communication failed, reconnecting next cycle: {e!r}')
+            sun2000_client.reset()
+        except InfluxDBError as e:
+            logger.error(f'InfluxDB write failed: {e}')
+        except Exception:
+            logger.exception('Unexpected error in polling cycle')
 
         now_local = datetime.now(LOCAL_TZ)
         if (now_local.hour == ROLLOUT_HOUR_LOCAL and now_local.minute == ROLLOUT_MINUTE_LOCAL) or ROLLOUT_FORCE:
             for rollup_type, rollup_function in rollup_map.items():
-                last_rollup_utc = get_last_rollup_time_utc(handler=influxdb_handler, rollup_type=rollup_type)
-                last_rollup_day_local = last_rollup_utc_to_local(last_rollup_utc=last_rollup_utc)
-                latest_complete_day = get_latest_complete_day()
-                days_to_rollup = get_days_to_rollup(last_rollup_day_local=last_rollup_day_local, latest_complete_day=latest_complete_day)
+                try:
+                    last_rollup_utc = get_last_rollup_time_utc(handler=influxdb_handler, rollup_type=rollup_type)
+                    last_rollup_day_local = last_rollup_utc_to_local(last_rollup_utc=last_rollup_utc)
+                    latest_complete_day = get_latest_complete_day()
+                    days_to_rollup = get_days_to_rollup(last_rollup_day_local=last_rollup_day_local, latest_complete_day=latest_complete_day)
+                except Exception:
+                    logger.exception(f'Could not determine days for {rollup_type} rollup')
+                    continue
 
                 for rollup_day in days_to_rollup:
                     try:
@@ -250,7 +261,8 @@ def main():
                     except Exception as e:
                         logger.error(f'Daily {rollup_type} rollup failed for day {rollup_day}: {e}')
 
-        time.sleep(config.polling_interval_seconds)
+        # Keep a steady interval: subtract the time the cycle itself took.
+        time.sleep(max(0.0, config.polling_interval_seconds - (time.monotonic() - cycle_start)))
 
 if __name__ == '__main__':
     main()
