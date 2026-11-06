@@ -22,9 +22,11 @@ MAX_GAP = 16
 STATIC_ATTRIBUTES = frozenset({
     "model", "sn", "firmware_version", "software_version",
     "rated_power", "maximum_active_power", "maximum_apparent_power",
-    "battery_rated_capacity", "meter_meter_type",
+    "battery_rated_capacity", "meter_meter_type", "number_of_pv_strings",
+    "battery_maximum_charge_power", "battery_maximum_discharge_power",
 })
 STATIC_REFRESH_SECONDS = 6 * 3600
+MAX_PV_STRINGS = 24  # registers PV1..PV24 exist; the inverter's NumberOfPVStrings picks how many are polled
 
 Register = Union[registers.InverterEquipmentRegister, registers.BatteryEquipmentRegister, registers.MeterEquipmentRegister]
 
@@ -107,7 +109,32 @@ class Sun2000:
             "meter_a_phase_active_power",
             "meter_b_phase_active_power",
             "meter_c_phase_active_power",
+            # added Nov 2026
+            "number_of_pv_strings",
+            "input_power",
+            "alarm1",
+            "alarm2",
+            "alarm3",
+            "fault_code",
+            "insulation_resistance",
+            "phase_a_voltage",
+            "phase_b_voltage",
+            "phase_c_voltage",
+            "phase_a_current",
+            "phase_b_current",
+            "phase_c_current",
+            "battery_bus_voltage",
+            "battery_bus_current",
+            "battery_maximum_charge_power",
+            "battery_maximum_discharge_power",
+            "battery_unit1_remaining_charge_discharge_time",
+            "battery_unit1_fault_id",
         ]
+        # pv<n>_voltage / pv<n>_current are added once the inverter reports its number of strings
+        self._pv_strings: Union[int, None] = None
+        self._replan()
+
+    def _replan(self) -> None:
         self._attribute_registers = self._discover_registers()
         self._dynamic_blocks = self._plan_blocks(
             [self._attribute_registers[a] for a in self.registers_to_poll if a not in STATIC_ATTRIBUTES])
@@ -115,6 +142,16 @@ class Sun2000:
             [self._attribute_registers[a] for a in self.registers_to_poll if a in STATIC_ATTRIBUTES])
         logger.info(f'Polling {len(self.registers_to_poll)} values: {len(self._dynamic_blocks)} block reads per cycle, '
                     f'{len(self._static_blocks)} more every {STATIC_REFRESH_SECONDS // 3600} h for static values')
+        logger.debug('Blocks: ' + ', '.join(f'{s}+{c}' for s, c, _ in self._dynamic_blocks + self._static_blocks))
+
+    def _configure_pv_strings(self) -> None:
+        """Ask the inverter how many PV strings it has and poll voltage/current for each."""
+        n = int(self.read_data(registers.InverterEquipmentRegister.NumberOfPVStrings))
+        n = max(0, min(n, MAX_PV_STRINGS))
+        self.registers_to_poll += [f'pv{i}_{kind}' for i in range(1, n + 1) for kind in ('voltage', 'current')]
+        self._pv_strings = n
+        logger.info(f'Inverter reports {n} PV string(s)')
+        self._replan()
 
     # ── connection ──────────────────────────────────────────────────────────────────────────
 
@@ -218,6 +255,13 @@ class Sun2000:
     def poll_all(self) -> Dict[str, RegisterData]:
         """Read all values. Connection problems raise (caller reconnects); a value that fails on
         its own is left out of this cycle and logged once until it works again."""
+        if self._pv_strings is None:
+            try:
+                self._configure_pv_strings()
+            except CONNECTION_ERRORS:
+                raise
+            except Exception as e:
+                logger.warning(f'Could not read the number of PV strings, retrying next cycle: {e!r}')
         refresh_static = self._static_read_at is None or time.monotonic() - self._static_read_at > STATIC_REFRESH_SECONDS
         if refresh_static:
             self._unreadable_blocks.clear()  # give rejected blocks another chance now and then
@@ -248,7 +292,113 @@ class Sun2000:
             self._cache = {}
         if refresh_static:
             self._static_read_at = time.monotonic()
+        self._add_derived(result)
         return result
+
+    @staticmethod
+    def _add_derived(result: Dict[str, RegisterData]) -> None:
+        """Values computed from what was read (source tag 'derived')."""
+        def value(name):
+            item = result.get(name)
+            return None if item is None else item.value
+        active, meter = value('active_power'), value('meter_active_power')
+        if active is not None and meter is not None:
+            # meter_active_power > 0 is feed-in, < 0 is import, so the house uses what the
+            # inverter delivers minus what goes to the grid.
+            result['house_consumption_power'] = RegisterData('derived', float(active - meter))
+        n = 1
+        while f'pv{n}_voltage' in result or f'pv{n}_current' in result:
+            voltage, current = value(f'pv{n}_voltage'), value(f'pv{n}_current')
+            if voltage is not None and current is not None:
+                result[f'pv{n}_power'] = RegisterData('derived', float(voltage * current))
+            n += 1
+
+    # ── added Nov 2026 ──────────────────────────────────────────────────────────────────────
+
+    @property
+    def number_of_pv_strings(self, source='inverter') -> RegisterData:
+        return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.NumberOfPVStrings))
+
+    @property
+    def alarm1(self, source='inverter') -> RegisterData:
+        # bitfield as integer: 0 = no alarm; the set bits identify the alarm (Huawei Modbus doc)
+        return RegisterData(source, int(self.read_data(registers.InverterEquipmentRegister.Alarm1), 2))
+
+    @property
+    def alarm2(self, source='inverter') -> RegisterData:
+        return RegisterData(source, int(self.read_data(registers.InverterEquipmentRegister.Alarm2), 2))
+
+    @property
+    def alarm3(self, source='inverter') -> RegisterData:
+        return RegisterData(source, int(self.read_data(registers.InverterEquipmentRegister.Alarm3), 2))
+
+    @property
+    def fault_code(self, source='inverter') -> RegisterData:
+        return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.FaultCode))
+
+    @property
+    def insulation_resistance(self, source='inverter') -> RegisterData:
+        # MOhm
+        return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.InsulationResistance))
+
+    @property
+    def phase_a_voltage(self, source='inverter') -> RegisterData:
+        # V
+        return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.PhaseAVoltage))
+
+    @property
+    def phase_b_voltage(self, source='inverter') -> RegisterData:
+        # V
+        return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.PhaseBVoltage))
+
+    @property
+    def phase_c_voltage(self, source='inverter') -> RegisterData:
+        # V
+        return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.PhaseCVoltage))
+
+    @property
+    def phase_a_current(self, source='inverter') -> RegisterData:
+        # A
+        return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.PhaseACurrent))
+
+    @property
+    def phase_b_current(self, source='inverter') -> RegisterData:
+        # A
+        return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.PhaseBCurrent))
+
+    @property
+    def phase_c_current(self, source='inverter') -> RegisterData:
+        # A
+        return RegisterData(source, self.read_data(registers.InverterEquipmentRegister.PhaseCCurrent))
+
+    @property
+    def battery_bus_voltage(self, source='battery') -> RegisterData:
+        # V
+        return RegisterData(source, self.read_data(registers.BatteryEquipmentRegister.BusVoltage))
+
+    @property
+    def battery_bus_current(self, source='battery') -> RegisterData:
+        # A
+        return RegisterData(source, self.read_data(registers.BatteryEquipmentRegister.BusCurrent))
+
+    @property
+    def battery_maximum_charge_power(self, source='battery') -> RegisterData:
+        # W
+        return RegisterData(source, self.read_data(registers.BatteryEquipmentRegister.MaximumChargePower))
+
+    @property
+    def battery_maximum_discharge_power(self, source='battery') -> RegisterData:
+        # W
+        return RegisterData(source, self.read_data(registers.BatteryEquipmentRegister.MaximumDischargePower))
+
+    @property
+    def battery_unit1_remaining_charge_discharge_time(self, source='battery') -> RegisterData:
+        # minutes
+        return RegisterData(source, self.read_data(registers.BatteryEquipmentRegister.Unit1RemainingChargeDischargeTime))
+
+    @property
+    def battery_unit1_fault_id(self, source='battery') -> RegisterData:
+        return RegisterData(source, self.read_data(registers.BatteryEquipmentRegister.Unit1FaultID))
 
     @property
     def model(self, source='inverter')->RegisterData:
@@ -535,3 +685,13 @@ class Sun2000:
         """
         # W
         return RegisterData(source, self.read_data(registers.MeterEquipmentRegister.CPhaseActivePower))
+
+
+def _pv_string_property(register, source='inverter'):
+    return property(lambda self: RegisterData(source, self.read_data(register)),
+                    doc=f'{register.name} ({register.value.unit})')
+
+# pv1_voltage (V), pv1_current (A), ... pv24_current; only the strings the inverter reports are polled
+for _n in range(1, MAX_PV_STRINGS + 1):
+    setattr(Sun2000, f'pv{_n}_voltage', _pv_string_property(getattr(registers.InverterEquipmentRegister, f'PV{_n}Voltage')))
+    setattr(Sun2000, f'pv{_n}_current', _pv_string_property(getattr(registers.InverterEquipmentRegister, f'PV{_n}Current')))

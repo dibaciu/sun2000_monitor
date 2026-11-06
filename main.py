@@ -19,6 +19,8 @@ UTC = timezone.utc
 ROLLOUT_HOUR_LOCAL = 0
 ROLLOUT_MINUTE_LOCAL = 1
 ROLLOUT_FORCE = False
+INFLUXDB_STARTUP_ATTEMPTS = 12
+INFLUXDB_STARTUP_DELAY_SECONDS = 5
 
 
 def get_last_rollup_time_utc(handler:InfluxDBHandler, rollup_type:str) -> Union[datetime, None]:
@@ -222,7 +224,16 @@ def main():
         'battery': daily_rollup_battery
     }
 
-    logger.info(f'InfluxDB ping server version: {influxdb_handler.ping()}')
+    # InfluxDB may still be starting (depends_on only waits for the container, not the service).
+    for attempt in range(1, INFLUXDB_STARTUP_ATTEMPTS + 1):
+        try:
+            logger.info(f'InfluxDB ping server version: {influxdb_handler.ping()}')
+            break
+        except ConnectionError as e:
+            if attempt == INFLUXDB_STARTUP_ATTEMPTS:
+                raise
+            logger.info(f'InfluxDB not ready yet (attempt {attempt}/{INFLUXDB_STARTUP_ATTEMPTS}), retrying in {INFLUXDB_STARTUP_DELAY_SECONDS}s: {e}')
+            time.sleep(INFLUXDB_STARTUP_DELAY_SECONDS)
     logger.info(f'Sun2000 ping server: {sun2000_client.ping()}')
     logger.info(f'Polling every {config.polling_interval_seconds} seconds')
 
