@@ -305,12 +305,12 @@ class Sun2000:
         if active is not None and meter is not None:
             # meter_active_power > 0 is feed-in, < 0 is import, so the house uses what the
             # inverter delivers minus what goes to the grid.
-            result['house_consumption_power'] = RegisterData('derived', float(active - meter))
+            result['house_consumption_power'] = RegisterData('derived', round(float(active - meter), 1))
         n = 1
         while f'pv{n}_voltage' in result or f'pv{n}_current' in result:
             voltage, current = value(f'pv{n}_voltage'), value(f'pv{n}_current')
             if voltage is not None and current is not None:
-                result[f'pv{n}_power'] = RegisterData('derived', float(voltage * current))
+                result[f'pv{n}_power'] = RegisterData('derived', round(float(voltage * current), 1))
             n += 1
 
     # ── added Nov 2026 ──────────────────────────────────────────────────────────────────────
