@@ -55,6 +55,8 @@ services:
       - influxdb
     volumes:
       - grafana_data:/var/lib/grafana
+      - /home/dibaciu/.config/letsencrypt/live/dibaciu.ro/fullchain.pem:${GRAFANA_SERVER_CERT_FILE}:ro
+      - /home/dibaciu/.config/letsencrypt/live/dibaciu.ro/privkey.pem:${GRAFANA_SERVER_CERT_KEY}:ro
     env_file:
       - .env.grafana
 
